@@ -5,7 +5,6 @@ const app = express();
 const port = 3000;
 const API_URL = "https://secrets-api.appbrewery.com/";
 
-//TODO 1: Fill in your values for the 3 types of auth.
 const yourUsername = "saikiran1542";
 const yourPassword = "Saikiran@15";
 const yourAPIKey = "2f2e3c95-54d4-4f9d-b54b-81df1da435f5";
@@ -16,7 +15,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/noAuth", async (req, res) => {
-  //TODO 2: Use axios to hit up the /random endpoint
   try {
     const response = await axios.get(API_URL + "random");
     const result = JSON.stringify(response.data);
@@ -28,15 +26,9 @@ app.get("/noAuth", async (req, res) => {
       error: error.message,
     });
   }
-  //The data you get back should be sent to the ejs file as "content"
-  //Hint: make sure you use JSON.stringify to turn the JS object from axios into a string.
 });
 
 app.get("/basicAuth", async (req, res) => {
-  //TODO 3: Write your code here to hit up the /all endpoint
-  //Specify that you only want the secrets from page 2
-  //HINT: This is how you can use axios to do basic auth:
-  // https://stackoverflow.com/a/74632908
   try {
     const response = await axios.get(API_URL + "all?page=1", {
       auth: {
@@ -55,9 +47,6 @@ app.get("/basicAuth", async (req, res) => {
 });
 
 app.get("/apiKey", async (req, res) => {
-  //TODO 4: Write your code here to hit up the /filter endpoint
-  //Filter for all secrets with an embarassment score of 5 or greater
-  //HINT: You need to provide a query parameter of apiKey in the request.
   try {
     const response = await axios.get(
       API_URL + `filter?score=5&apiKey=${yourAPIKey}`,
@@ -79,11 +68,6 @@ app.get("/apiKey", async (req, res) => {
 });
 
 app.get("/bearerToken", async (req, res) => {
-  //TODO 5: Write your code here to hit up the /secrets/{id} endpoint
-  //and get the secret with id of 42
-  //HINT: This is how you can use axios to do bearer token auth:
-  // https://stackoverflow.com/a/52645402
-
   try {
     const response = await axios.get(API_URL + "secrets/1", {
       headers: {
